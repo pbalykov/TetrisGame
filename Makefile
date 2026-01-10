@@ -24,6 +24,9 @@ $(OBJ)render.o: $(SRC)render.cpp
 $(OBJ)%.o: src/%.cpp
 	c++ -c $^ -o $@ $(FLAG_ASSEMBLY)
 
+run: all
+	./$(NAME)
+
 clean:
 	rm -rf obj
 

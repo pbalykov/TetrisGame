@@ -32,9 +32,9 @@ int Interfase::run() {
 int Interfase::_game() {
     while (true) {
         wclear(stdscr);
-        _view->Game(_logicsGame->getMap(), _logicsGame->getFirstFigure());
+        _view->Game(_logicsGame->getMap(), _logicsGame->getFirstFigure(), _logicsGame->getScore());
         auto start = std::chrono::high_resolution_clock::now();
-        halfdelay(3);
+        halfdelay(1);
         auto key = getch();
         switch (key) {
             case KEY_LEFT :
@@ -49,10 +49,10 @@ int Interfase::_game() {
             case 'q' :
                 return 0;
         }
-        auto end = std::chrono::high_resolution_clock::now();
-        double elapsed = (std::chrono::duration_cast<std::chrono::milliseconds>(end - start)).count();
-        if ( elapsed < 300 )
-            usleep((300 - elapsed) * 1000);
+//        auto end = std::chrono::high_resolution_clock::now();
+//        double elapsed = (std::chrono::duration_cast<std::chrono::milliseconds>(end - start)).count();
+//        if ( elapsed < 300 )
+//            usleep((300 - elapsed) * 1000);
         _logicsGame->step();
         flushinp();
     }

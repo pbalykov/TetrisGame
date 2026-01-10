@@ -65,7 +65,7 @@ bool Render::drawMenu(int cursor) {
     return true;      
 }
 
-bool Render::Game(const Field& map, const Figure& figure) {
+bool Render::Game(const Field& map, const Figure& figure, int score) {
     auto size = getWindowSize();
     if ( WINDOW_WIDTH > size.first || WINDOW_HEIGHT > size.second )
         return false;
@@ -92,6 +92,36 @@ bool Render::Game(const Field& map, const Figure& figure) {
     for (int i = 0; i < arrFigure.size(); i++)
         mvprintw(begin_y + arrFigure[i].second, begin_x + arrFigure[i].first * 2, "  ");
     _color.setColorGame(Color::NONE);
+
+    begin_x += 21 + 2;
+ 
+    _draw_table(begin_x, begin_y, 10, 4);
+    mvprintw(begin_y - 1, begin_x + (10 / 2 - std::string("Next").size() / 2), "%s", "Next");
+
+    begin_x -= 21 + 2 + 15 + 4;
+    _draw_table(begin_x, begin_y, 16, 3);
+    mvprintw(begin_y - 1, begin_x + (16 / 2 - std::string("Status").size() / 2), "%s", "Status");
+    mvprintw(begin_y, begin_x + 1, "Score  % 7d", score);
+    mvprintw(begin_y + 2, begin_x + 1, "Level  % 7d", 1);
+
+
     refresh();
     return true;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

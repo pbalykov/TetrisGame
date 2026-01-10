@@ -4,6 +4,8 @@
 #include "field.hpp"
 #include "figure.hpp"
 
+#include <ctime>
+
 class Logics {
 public:
     using MOVE = Figure::TYPE_MOVE;
@@ -26,9 +28,11 @@ private:
     Figure _figure1;
     Figure _figure2;
 
-    int _score; //количто 
-    bool _endGame; //конец игры
-                   //
+    double _callStepTime;
+
+    int _score; 
+    bool _endGame; 
+
     int _scoreLavel;
                    
 };

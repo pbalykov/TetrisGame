@@ -5,14 +5,17 @@
 ColorRender::ColorRender() : _colorCurrent(Color::NONE) {
     start_color();
     use_default_colors(); 
+    init_pair(static_cast<int>(Color::VIOLET), -1, COLOR_VIOLET_CASTOM);
+    init_pair(static_cast<int>(Color::ORANGE), -1, COLOR_ORANGE_CASTOM);
+
     init_pair(static_cast<int>(Color::CYAN), -1, COLOR_CYAN);
-    init_pair(static_cast<int>(Color::VIOLET), -1, COLOR_MAGENTA);
     init_pair(static_cast<int>(Color::YELLOW), -1, COLOR_YELLOW);
     init_pair(static_cast<int>(Color::PURPLE), -1, COLOR_MAGENTA); 
     init_pair(static_cast<int>(Color::GREEN), -1, COLOR_GREEN);
+    
     init_pair(static_cast<int>(Color::RED), -1, COLOR_RED);
+
     init_pair(static_cast<int>(Color::BLUE), -1, COLOR_BLUE);
-    init_pair(static_cast<int>(Color::ORANGE), -1, COLOR_YELLOW); 
     init_pair(static_cast<int>(Color::NONE), -1, COLOR_WHITE);
 }
 

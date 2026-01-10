@@ -4,6 +4,8 @@
 #include "commonEnum.hpp"
 
 class ColorRender {
+    static constexpr short COLOR_VIOLET_CASTOM = 56;
+    static constexpr short COLOR_ORANGE_CASTOM = 214; 
 public:
     ColorRender();
     Color getColor() const;
