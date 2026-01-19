@@ -11,20 +11,19 @@ class Field;
 class Figure {
     static constexpr short SCORE_FIGURE = 7; 
 public:
-    enum class TYPE_MOVE {
+    enum class TYPE_SHIFT {
         LEFT,
         RIGHT,
-        REVERSAL,
     };
 
     Figure();
 
     Figure makeFigure();
     
-    void move(const Field& value, TYPE_MOVE type);
+    void shift(const Field& value, TYPE_SHIFT type);
     bool step(const Field& value);
     void reversal(const Field& value);
-    
+
     void centerX(int width);
     
     std::vector<std::pair<int, int> > getArr() const;

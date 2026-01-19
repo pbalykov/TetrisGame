@@ -14,7 +14,6 @@ Figure Figure::makeFigure() {
         {{0,0}, {0,1}, {1,1}, {2,1}}, // J
         {{0,1}, {1,1}, {2,1}, {2,0}}  // L
     };
-
     static thread_local std::mt19937 generator(std::random_device{}());
     std::uniform_int_distribution<int> distribution(0, shapes.size() - 1);
 
@@ -29,16 +28,12 @@ Figure::Figure() {
     *this = makeFigure();
 }
 
-void Figure::move(const Field& value, TYPE_MOVE type) {
-    if ( type == TYPE_MOVE::REVERSAL ) {
-        reversal(value);
-        return ;
-    }
+void Figure::shift(const Field& value, TYPE_SHIFT type) {
     for (int i = 0; i < _arr.size(); i++) {
-        int newX = type == TYPE_MOVE::LEFT ? _arr[i].first + _x - 1 : _arr[i].first + _x + 1;
+        int newX = type == TYPE_SHIFT::LEFT ? _arr[i].first + _x - 1 : _arr[i].first + _x + 1;
         if ( !value.isNone(newX, _arr[i].second  + _y) ) return ;
     }
-    type == TYPE_MOVE::LEFT ? _x-- : _x++;
+    type == TYPE_SHIFT::LEFT ? _x-- : _x++;
 }
 
 bool Figure::step(const Field& value) {
@@ -82,4 +77,4 @@ std::vector<std::pair<int, int> > Figure::getArr() const {
 
 Color Figure::getColor() const {
     return _color;
-}
+} 

@@ -3,24 +3,28 @@
 
 #include "field.hpp"
 #include "figure.hpp"
-
-#include <ctime>
+#include "complexity.hpp"
 
 class Logics {
 public:
-    using MOVE = Figure::TYPE_MOVE;
+    using MOVE = Figure::TYPE_SHIFT;
 
     Logics();
-    void step();   
-    void move(MOVE value);
+    
+    void stepFigure();   
+    void shiftFigure(MOVE value);
+    void hardDropFigure();
+    void softDropFigure();
+    void reversalFigure();
+    
+
 
     const Figure& getFirstFigure() const;
     const Figure& getSecondFigure() const;
     const Field& getMap() const;
     int getScore() const;
-
     bool endGame() const;
-
+    int getCurrentLevel() const;
 
 private:
     Field _map;
@@ -28,14 +32,10 @@ private:
     Figure _figure1;
     Figure _figure2;
 
-    double _callStepTime;
+    Complexity _complexity;
 
     int _score; 
-    bool _endGame; 
-
-    int _scoreLavel;
-                   
+    bool _endGame;                    
 };
-
 
 #endif

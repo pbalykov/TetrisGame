@@ -3,7 +3,6 @@
 #include <ncurses.h> 
 
 #include <unistd.h>
-#include <chrono>
 #include <cstdlib>
 
 Interfase::Interfase() : _logicsGame(nullptr), _view(nullptr) {
@@ -32,28 +31,29 @@ int Interfase::run() {
 int Interfase::_game() {
     while (true) {
         wclear(stdscr);
-        _view->Game(_logicsGame->getMap(), _logicsGame->getFirstFigure(), _logicsGame->getScore());
-        auto start = std::chrono::high_resolution_clock::now();
+        _view->Game(_logicsGame->getMap(), _logicsGame->getFirstFigure(), _logicsGame->getScore(), _logicsGame->getCurrentLevel());
         halfdelay(1);
         auto key = getch();
         switch (key) {
             case KEY_LEFT :
-                _logicsGame->move(Logics::MOVE::LEFT);
+                _logicsGame->shiftFigure(Logics::MOVE::LEFT);
                 break;
             case KEY_RIGHT :
-                _logicsGame->move(Logics::MOVE::RIGHT);
+                _logicsGame->shiftFigure(Logics::MOVE::RIGHT);
                 break;
             case KEY_UP:
-                _logicsGame->move(Logics::MOVE::REVERSAL);
+                _logicsGame->reversalFigure();
+                break;
+            case KEY_DOWN:
+                _logicsGame->softDropFigure();
+                break;
+            case ' ':
+                _logicsGame->hardDropFigure();
                 break;
             case 'q' :
                 return 0;
         }
-//        auto end = std::chrono::high_resolution_clock::now();
-//        double elapsed = (std::chrono::duration_cast<std::chrono::milliseconds>(end - start)).count();
-//        if ( elapsed < 300 )
-//            usleep((300 - elapsed) * 1000);
-        _logicsGame->step();
+        _logicsGame->stepFigure();
         flushinp();
     }
     return 0;

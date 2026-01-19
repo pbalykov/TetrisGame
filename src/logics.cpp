@@ -3,43 +3,54 @@
 #include <utility>
 #include <chrono>
 
-Logics::Logics() : _score(0), _endGame(false), _scoreLavel(0) {
+Logics::Logics() : _score(0), _endGame(false) {
     _figure1.centerX(Field::WIDTH);
-    auto time = std::chrono::high_resolution_clock::now().time_since_epoch();
-    _callStepTime = std::chrono::duration_cast<std::chrono::duration<double>>(time).count();
-
+    _complexity.resetTimer();
 }
 
 bool Logics::endGame() const {
     return _endGame;
 }
 
-void Logics::step() {
-    if (_endGame ) return;
-    
-    auto tmpTime = std::chrono::high_resolution_clock::now().time_since_epoch();
-    double _time = std::chrono::duration_cast<std::chrono::duration<double>>(tmpTime).count();
+void Logics::stepFigure() {
+    if ( _endGame ||  _complexity.shouldPerformFall() ) return;
 
-    if ( _time - _callStepTime <= 0.717) return;
-    _callStepTime = _time;
-
-    if ( _figure1.step(_map) ) return;
+    bool moveSuccess = _figure1.step(_map);
+    _complexity.resetTimer();
+    if ( moveSuccess ) return;
     
     _map.installFigure(_figure1);
-    _score += _map.delRow();
+    int tmpScore = _map.delRow();
+    if (_score / 10 != (tmpScore + _score) / 10 )
+        _complexity.increaseLevel();
+    _score += tmpScore;
+        
     
     _figure1 = _figure2;
     _figure2 = Figure();
     _figure1.centerX(Field::WIDTH);
     _endGame = _map.isInstall(_figure1);
-    
-    tmpTime = std::chrono::high_resolution_clock::now().time_since_epoch();
-    _callStepTime = std::chrono::duration_cast<std::chrono::duration<double>>(tmpTime).count();
 }
 
-void Logics::move(MOVE value) {
+void Logics::shiftFigure(MOVE value) {
     if ( _endGame ) return;
-    _figure1.move(_map, value);
+    _figure1.shift(_map, value);
+}
+
+void Logics::hardDropFigure() {
+    if ( _endGame ) return;
+    while ( _figure1.step(_map) );
+    _complexity.scheduleImmediateFall();
+}
+
+void Logics::softDropFigure() { 
+    if ( _endGame ) return;
+    _complexity.scheduleImmediateFall();
+}
+
+void Logics::reversalFigure() {
+    if ( _endGame ) return;
+    _figure1.reversal(_map);
 }
 
 const Figure& Logics::getFirstFigure() const {
@@ -58,4 +69,6 @@ int Logics::getScore() const {
     return _score;
 }
 
-
+int Logics::getCurrentLevel() const {
+    return _complexity.getCurrentLevel();
+}

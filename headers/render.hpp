@@ -13,9 +13,12 @@ class Render {
     "Game", "About the game", "Exit"};
 
     static constexpr std::string_view NAME_FOLDER = "TETRIS";
-    static constexpr std::string_view NAME_FOLDER_NEXT = "Next";
-    static constexpr std::string_view NAME_FOLDER_STATUS = "Status";
-    static constexpr std::string_view NAME_FOLDER_HELP = "Help";
+    static constexpr std::string_view NAME_NEXT = "Next";
+    static constexpr std::string_view NAME_STATUS = "Status";
+    static constexpr std::string_view NAME_HELP = "Help";
+
+    static constexpr unsigned short FOLDER_STATUS_WIDTH = 16;
+    static constexpr unsigned short FOLDER_STATUS_HEIGHT = 3;
 
     static constexpr int WINDOW_WIDTH = 10; // ширина
     static constexpr int WINDOW_HEIGHT = 10; // высота
@@ -26,8 +29,8 @@ public:
     bool drawMainWindow(); // главное окно:v
  
     bool drawMenu(int cursor = 0); // меню 
-    
-    bool Game(const Field& map, const Figure& figure1, int score);
+
+    bool Game(const Field& map, const Figure& figure, int score, int level);
     
     static std::pair<int, int> getWindowSize();
 
