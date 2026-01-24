@@ -11,7 +11,8 @@ enum class Color {
     RED = 6,
     BLUE = 7,
     ORANGE = 8,
-};
 
+    COUNT //END color
+};
 
 #endif

@@ -72,3 +72,17 @@ int Logics::getScore() const {
 int Logics::getCurrentLevel() const {
     return _complexity.getCurrentLevel();
 }
+
+TetrisData Logics::getTetrisData() const {
+    return TetrisData{_map, _figure1, _calculateDropDistance(),
+        _figure2, _endGame, getCurrentLevel(), _score};
+}
+
+int Logics::_calculateDropDistance() const {
+    const auto& figureBlocks = _figure1.getArr();
+    for (int distance = 0; ; distance++) 
+        for (const auto& block : figureBlocks) 
+            if (!_map.isNone(block.first, block.second + distance)) 
+                return --distance;
+    return 0;
+}

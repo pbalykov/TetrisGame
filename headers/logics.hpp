@@ -5,6 +5,8 @@
 #include "figure.hpp"
 #include "complexity.hpp"
 
+#include "tetrisData.hpp"
+
 class Logics {
 public:
     using MOVE = Figure::TYPE_SHIFT;
@@ -17,8 +19,6 @@ public:
     void softDropFigure();
     void reversalFigure();
     
-
-
     const Figure& getFirstFigure() const;
     const Figure& getSecondFigure() const;
     const Field& getMap() const;
@@ -26,7 +26,11 @@ public:
     bool endGame() const;
     int getCurrentLevel() const;
 
+    TetrisData getTetrisData() const; 
+
+
 private:
+    int _calculateDropDistance() const;
     Field _map;
 
     Figure _figure1;

@@ -31,7 +31,8 @@ int Interfase::run() {
 int Interfase::_game() {
     while (true) {
         wclear(stdscr);
-        _view->Game(_logicsGame->getMap(), _logicsGame->getFirstFigure(), _logicsGame->getScore(), _logicsGame->getCurrentLevel());
+ //       _view->Game(_logicsGame->getMap(), _logicsGame->getFirstFigure(), _logicsGame->getScore(), _logicsGame->getCurrentLevel());
+        _view->Game(_logicsGame->getTetrisData());
         halfdelay(1);
         auto key = getch();
         switch (key) {
