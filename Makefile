@@ -16,10 +16,10 @@ main: $(patsubst $(SRC)%.cpp,$(OBJ)%.o,$(wildcard $(SRC)*.cpp))
 	c++ $^ -o $(NAME) $(NCURSES_LD) $(FLAG_ASSEMBLY)
 
 $(OBJ)interfase.o: $(SRC)interfase.cpp
-	c++ -c $^ -o $@  $(NCURSES_HEADER) $(FLAG_ASSEMBLY) 
+	c++ -c $^ -o $@ $(NCURSES_HEADER) $(FLAG_ASSEMBLY) 
 
 $(OBJ)render.o: $(SRC)render.cpp
-	c++ -c $^ -o $@  $(NCURSES_HEADER) $(FLAG_ASSEMBLY)
+	c++ -c $^ -o $@ $(NCURSES_HEADER) $(FLAG_ASSEMBLY)
 
 $(OBJ)%.o: src/%.cpp
 	c++ -c $^ -o $@ $(FLAG_ASSEMBLY)

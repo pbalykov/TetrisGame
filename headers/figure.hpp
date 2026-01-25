@@ -26,6 +26,7 @@ public:
 
     void centerX(int width);
     
+    int getWidthFigure() const;
     std::vector<std::pair<int, int> > getArr() const;
     Color getColor() const;    
 

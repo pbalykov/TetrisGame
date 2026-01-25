@@ -58,15 +58,17 @@ void Figure::reversal(const Field& value) {
     _arr = std::move(new_arr); 
 }
 
-void Figure::centerX(int width) { 
-    auto maxXfigure = std::max_element(_arr.begin(), _arr.end(), 
+int Figure::getWidthFigure() const {
+    return std::max_element(_arr.begin(), _arr.end(), 
                         [](const auto& a, const auto& b) {
                             return a.first < b.first;
                         })->first;
-
-    _x = width / 2 - maxXfigure / 2 - 1;
 }
 
+void Figure::centerX(int width) { 
+    auto maxXfigure = getWidthFigure();
+    _x = width / 2 - maxXfigure / 2 - 1;
+}
 
 std::vector<std::pair<int, int> > Figure::getArr() const {
     auto res = _arr;
